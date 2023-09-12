@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paiements', function (Blueprint $table) {
-            $table->id();
-            $table->date('date');
-            $table->integer('montant');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('paiements', function (Blueprint $table) {
+            $table->unsignedBigInteger('commande_id')->after('id');
+            $table->foreign('commande_id')->references('id')->on('commandes');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paiements');
+        Schema::table('paiments', function (Blueprint $table) {
+            //
+        });
     }
 };
